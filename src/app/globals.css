@@ -91,3 +91,34 @@
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-muted-foreground/50;
 }
+
+/* Abzu hero backgrounds */
+.bg-radial-abzu {
+	background: radial-gradient(1200px 600px at 50% -10%, hsl(var(--brand-cyan) / 0.25), transparent 70%),
+		linear-gradient(to bottom, white, white);
+}
+
+.bg-abstract-abzu {
+	position: relative;
+	background:
+		radial-gradient(800px 400px at 10% 0%, hsl(var(--brand-cyan) / 0.18), transparent 60%),
+		radial-gradient(700px 350px at 90% 10%, hsl(var(--brand-cyan) / 0.14), transparent 60%),
+		linear-gradient(to bottom, white, white);
+}
+
+.bg-abstract-abzu::before {
+	content: "";
+	position: absolute;
+	inset: -10% -10% -5% -10%;
+	background:
+		conic-gradient(from 0deg at 50% 50%, hsl(var(--brand-cyan) / 0.06), transparent 40%, hsl(var(--brand-cyan) / 0.06) 70%, transparent 100%);
+	filter: blur(40px);
+	animation: abzu-drift 14s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes abzu-drift {
+	0% { transform: translateY(0) rotate(0deg); }
+	50% { transform: translateY(12px) rotate(1deg); }
+	100% { transform: translateY(0) rotate(0deg); }
+}
