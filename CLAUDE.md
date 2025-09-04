@@ -49,12 +49,56 @@ The app follows a content-driven architecture with MDX files for research papers
 - Accent: `bg-[--brand-cyan]`, `text-[--brand-cyan]`
 - Background: `bg-[--base]`, `bg-[--base-elevated]`
 
+### Brand Color System
+**Primary Gradient (Cyan)**
+- Start: #00f5ff
+- End: #00ccfe
+- Implementation: Gradient-native (elements reveal gradient, never applied as fill)
+- Direction: Horizontal bias, deeper at edges
+- Scope: Per gestalt unit (never global)
+
+**Electric Sunshine Yellow**
+- Hex: #FCF951
+- Usage: Precision boundaries, activation states
+- Rule: Always solid, never gradient
+
+**Gradient-Native CSS Implementation**
+```css
+.gradient-field {
+  background: linear-gradient(90deg, #00f5ff 0%, #00ccfe 100%);
+  position: absolute;
+  z-index: -1;
+}
+
+.text-reveal {
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+```
+
+### Typography System
+**Font Stack**
+- Display/Headlines: "Rialto Titling", serif
+- Body Text: "Kuenstler 480", serif
+- UI/Secondary: "GT Zirkon", sans-serif
+- Code/Technical: "JetBrains Mono", monospace
+- Academic/LaTeX: "Cardo", serif
+
+**Digital Size Specifications**
+- Body text: 16px (1rem)
+- UI text: 14px (0.875rem)
+- Small text: 12px (0.75rem) minimum
+- Display: 48px minimum
+
 ### Accessibility
 - Keyboard navigation required everywhere
 - Focus rings: `focus-visible:ring-2 ring-[--brand-cyan] ring-offset-2`
 - Semantic HTML with proper landmarks
 - One h1 per page only
 - Target: Lighthouse 100 accessibility score
+- Note: Light grays (30-40%) acceptable for sophisticated non-critical text
 
 ### Component Patterns
 - TypeScript strict mode - no `any` types
@@ -104,3 +148,37 @@ Use conventional commits:
 - No external CSS frameworks allowed (only Tailwind v4)
 - All colors must use design tokens, never hard-coded values
 - Focus on performance and SEO optimization
+
+## Brand Implementation Rules
+
+### Core Positioning
+- "Computational Arbitrage" - Direct, technical, precise messaging
+- No democratization language, no startup clichés
+- Target audience: 100-150 decision makers (filter effect intentional)
+
+### Gradient-Native Execution
+The gradient is NEVER:
+- Stretched to fit shapes
+- Applied as a fill
+- Rotated per element
+
+The gradient ALWAYS:
+- Exists as a fixed field
+- Gets revealed through masks
+- Maintains consistent orientation within scope
+
+### Responsive Type Scale
+```css
+/* Mobile First */
+h1 { font-size: 2rem; }    /* 32px */
+h2 { font-size: 1.75rem; }  /* 28px */
+h3 { font-size: 1.5rem; }   /* 24px */
+body { font-size: 1rem; }   /* 16px */
+
+/* Desktop (min-width: 768px) */
+@media (min-width: 768px) {
+  h1 { font-size: 3rem; }    /* 48px */
+  h2 { font-size: 2.25rem; } /* 36px */
+  h3 { font-size: 1.75rem; } /* 28px */
+}
+```
