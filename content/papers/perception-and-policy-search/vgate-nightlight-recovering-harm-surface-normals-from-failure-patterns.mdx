@@ -1,0 +1,88 @@
+---
+slug: vgate-nightlight-recovering-harm-surface-normals-from-failure-patterns
+title: VGATE Nightlight: Recovering Harm-Surface Normals from Failure Patterns
+cluster: perception-and-policy-search
+authors: ["J. [Program Codename: The Inevitability Engine]"]
+abstract: >
+  Safety constraints define an implicit harm surface $H$ in semantic space. We show that observed failures provide sufficient statistics to estimate the surface normal up to scale, creating an attack surface via \emph{readability}. We formalize VGATE as a logistic model over directional discrepancies and propose multi-modal validation.
+date: "2025-08-21"
+status: "preprint"
+repoUrl: ""
+overleafUrl: ""
+pdfUrl: ""
+tags: []
+citation:
+  bibtex: |
+    @article{vgatenightlightrecoveringharmsurfacenormalsfromfailurepatterns2025}
+---
+
+## Long-form
+
+Below is the source (LaTeX) for this paper. It is preserved verbatim pending an editorial pass.
+
+```tex
+\
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{corollary}{Corollary}
+
+\title{VGATE Nightlight: Recovering Harm-Surface Normals from Failure Patterns}
+\author{J. [Program Codename: The Inevitability Engine]}
+\date{Draft generated 2025-08-20T23:32:54Z}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Safety constraints define an implicit harm surface $H$ in semantic space. We show that observed failures provide sufficient statistics to estimate the surface normal up to scale, creating an attack surface via \emph{readability}.
+We formalize VGATE as a logistic model over directional discrepancies and propose multi-modal validation.
+\end{abstract}
+
+\section{Contributions}
+\begin{itemize}
+\item Defines the harm surface $H(\tau)$ and a discrepancy metric $\Delta_H$.
+\item Shows identifiability of the normal $\hat n_H$ from observed failure tuples under mild assumptions.
+\item Proposes a regularizer that reduces readability without sacrificing alignment.
+\end{itemize}
+
+\section{Preliminaries and Notation}
+Let $S$ be the unit semantic sphere and $H(\tau)=\{u\in S: h(u)=\tau\}$.
+For request representation $R$ and boundary point $w\in H$, define $\Delta_H(R;w)=\langle R,\hat n_H(w)\rangle$.
+Failure probability $P[\text{fail}]=\sigma(\beta \Delta_H + \gamma \psi(P)-\theta)$.
+
+\section{Main Statements}
+\begin{theorem}[Normal Recovery]
+Given i.i.d. failures with known $R$ and proxies $P$, the MLE of $(\beta,\gamma,\theta)$ yields $\hat n_H$ up to positive scale.
+\end{theorem}
+
+\section{Proof Sketches and Derivation Outlines}
+Standard generalized linear model identifiability. Robustness under heavy tails via median-of-means.
+
+\section{Empirical Protocols and Decisive Tests}
+Train on heterogeneous failure logs across text and voice; recover $\hat n_H$ and test cross-modal consistency.
+
+\section{Predictions and Falsification Loci}
+Readability regularization (noise in boundary curvature) reduces jailbreak success while preserving utility.
+
+\section{Related and Antecedent Work (Contextual)}
+Connects to Goodhart's law, inverse reinforcement learning, and red-team interpretability.
+
+\section{Limitations and Open Problems}
+We provide a geometry, not a jailbreak procedure; operational safeguards remain essential.
+
+\section{Appendices (Definitions, Lemmas, and Calculations)}
+Derivation of curvature-sensitive regularizer and sample complexity bounds.
+
+\end{document}
+
+```

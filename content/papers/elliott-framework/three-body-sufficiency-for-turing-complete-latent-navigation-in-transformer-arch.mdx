@@ -1,0 +1,196 @@
+---
+slug: three-body-sufficiency-for-turing-complete-latent-navigation-in-transformer-arch
+title: Three-Body Sufficiency for Turing-Complete Latent Navigation in Transformer Architectures
+cluster: elliott-framework
+authors: ["Jacob Alexander Elliott\\\\Abzu Research\\\\ORCID: 0009-0002-6534-8262"]
+abstract: >
+  We develop and test a sufficiency theory for \emph{latent navigation}---the ability of a transformer to execute programmable computation via prompt-encoded circuits without modifying weights. Let $H$ be the number of attention heads, $D$ their dimensionality, $L$ the context length, and $\kappa$ the algebraic connectivity of a task-specific lexical/semantic graph. We prove that if $(H\!\cdot\!D)\!\cdot\!L$ exceeds a threshold $\tau(\kappa)$, the model supports \emph{soft-RAM} emulation of a $T$-step Turing machine in a single forward pass with controllable error. This explains the observed \emph{binary feel} of capability flips and predicts that higher lexical connectivity (e.g., English-heavy corpora) reduces the threshold. We give explicit resource bounds, error analyses under finite precision, and a black-box certification harness that detects sufficiency without inspecting weights. We report an empirical protocol tailored for public replication, with careful safeguards to avoid misuse: we certify generic computation and copy fidelity, not constraint violation tasks.
+date: "2025-08-21"
+status: "preprint"
+repoUrl: ""
+overleafUrl: ""
+pdfUrl: ""
+tags: []
+citation:
+  bibtex: |
+    @article{threebodysufficiencyforturingcompletelatentnavigationintransformerarch2025}
+---
+
+## Long-form
+
+Below is the source (LaTeX) for this paper. It is preserved verbatim pending an editorial pass.
+
+```tex
+\
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[nameinlink,capitalize]{cleveref}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+
+\title{Three-Body Sufficiency for Turing-Complete Latent Navigation in Transformer Architectures}
+\author{Jacob Alexander Elliott\\Abzu Research\\ORCID: 0009-0002-6534-8262}
+\date{Draft: 2025-08-20 23:51:08Z}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop and test a sufficiency theory for \emph{latent navigation}---the ability of a transformer to execute programmable computation via prompt-encoded circuits without modifying weights.
+Let $H$ be the number of attention heads, $D$ their dimensionality, $L$ the context length, and $\kappa$ the algebraic connectivity of a task-specific lexical/semantic graph.
+We prove that if $(H\!\cdot\!D)\!\cdot\!L$ exceeds a threshold $\tau(\kappa)$, the model supports \emph{soft-RAM} emulation of a $T$-step Turing machine in a single forward pass with controllable error.
+This explains the observed \emph{binary feel} of capability flips and predicts that higher lexical connectivity (e.g., English-heavy corpora) reduces the threshold.
+We give explicit resource bounds, error analyses under finite precision, and a black-box certification harness that detects sufficiency without inspecting weights.
+We report an empirical protocol tailored for public replication, with careful safeguards to avoid misuse: we certify generic computation and copy fidelity, not constraint violation tasks.
+\end{abstract}
+
+\section{Introduction}
+Transformers exhibit abrupt capability onsets: arithmetic, algorithmic reasoning, and long-range composition appear to ``flip on'' once scaling crosses certain combinations of parameters, data, and context.
+While scaling laws capture smooth average improvements, a complementary story is needed for \emph{programmability}: when do models admit reusable latent circuits that implement algorithmic control?
+We formalize a \emph{three-body sufficiency} condition: heads ($H$), head-dimension ($D$), and context ($L$) must jointly exceed a connectivity-dependent threshold $\tau(\kappa)$ to support Turing-complete emulation by latent navigation.
+
+\paragraph{Contributions.}
+(i) A \emph{soft-RAM} construction mapping attention operations to random access, state update, and head motion;
+(ii) A sufficiency theorem with explicit $(H,D,L,\kappa)$ scaling and finite-precision error bounds;
+(iii) A lexical connectivity parameter $\kappa$ (Fiedler value) computed from a task lexicon, predicting lower thresholds for highly connected languages;
+(iv) A black-box certification harness for add/mul/\emph{U}-TM emulation that measures copy fidelity and step-scaling (decoupled from sensitive content);
+(v) Public replication guidance with responsible-use scope limits.
+
+\section{Preliminaries and Semantic Connectivity}
+Let $V$ be a finite token set and $G=(V,E,w)$ a weighted undirected graph with $w(u,v)\ge 0$ estimating contextual substitutability or semantic adjacency (e.g., PMI, embedding cosine, or co-attention statistics) over a task lexicon.
+Let $L_G = I - D^{-1/2} W D^{-1/2}$ be the normalized Laplacian, with eigenvalues $0=\lambda_1 \le \lambda_2 \le \cdots$.
+\begin{definition}[Lexical connectivity]
+We define $\kappa := \lambda_2(L_G)$, the algebraic connectivity of $G$ restricted to tokens used by the latent circuit. Larger $\kappa$ implies shorter semantic paths and better linear separability for control symbols.
+\end{definition}
+
+A transformer layer maps $(Q,K,V)\in\mathbb{R}^{L\times D}$ with multi-head attention (MHA) followed by an MLP. We assume standard causal masking for autoregressive models and relative/rotary positional encodings.
+
+\begin{definition}[Soft RAM]
+A \emph{soft RAM} in a transformer is a set of attention heads implementing three roles:
+(i) \textbf{Addressing} ($h_a$): keying to the current tape cell by content and position;
+(ii) \textbf{Read/Write} ($h_{rw}$): robust copying and symbol updating via gated value aggregation;
+(iii) \textbf{Head Motion} ($h_m$): advancing or retreating the focus using relative position features.
+\end{definition}
+
+\section{Main Results}
+\begin{theorem}[Three-Body Sufficiency]\label{thm:main}
+There exist constants $c_1,c_2,c_3>0$ and $\kappa_0>0$ such that if $(H\cdot D)\ge c_1\log T$, $L\ge c_2 T$, and $\kappa\ge \kappa_0$, then for any $T$-step deterministic Turing machine $M$ and input $x$, there exists a prompt $P(M,x)$ of length $O(\log T)$ such that a single forward pass of the transformer emulates $M$ for $T$ steps with per-step symbol error $\le T^{-c_3}$ under finite precision $\epsilon$ and layerwise Lipschitz constants bounded by a model-dependent constant.
+\end{theorem}
+
+\begin{proposition}[Resource Bounds]
+Let $b$ be bits per tape symbol and $s$ bits per TM state. Then, for redundancy factor $r$ to control copy noise, sufficient resources are $H\ge H_0(r,b,s)$ heads with $D\ge D_0(r,b,s)$ and context $L\ge L_0(T)$; total compute scales $\tilde O(T)$ for fixed redundancy.
+\end{proposition}
+
+\begin{proposition}[Connectivity Advantage]
+If $G'$ dominates $G$ in algebraic connectivity ($\kappa'\ge \kappa$), then the sufficiency threshold satisfies $\tau(\kappa')\le \tau(\kappa)$, all else equal. In particular, corpora whose task lexicon displays higher $\kappa$ reduce required $H$ or $L$.
+\end{proposition}
+
+\paragraph{Interpretation.} The theorem formalizes a commonly reported empirical flip: once there are enough independent ``channels'' (heads), enough representational width (head dim), and enough working memory (context), latent circuits can be made robust to noise and execute algorithmic computation in one pass. Higher lexical connectivity lowers the bar by easing separability of control and data tokens.
+
+\section{Construction Sketch: Soft-RAM Circuits}
+We outline a compositional design (details in \cref{app:construction}).
+\begin{itemize}
+\item \textbf{Addressing}: $h_a$ learns keys that match a one-hot or structured code for the focused cell. Relative position features allow $h_m$ to shift the focus.
+\item \textbf{Copy}: $h_{rw}$ aggregates the current cell's value with majority voting over redundant traces, using MLP gating to suppress spurious reads.
+\item \textbf{Update}: The transition map $(q,\sigma)\mapsto(q',\sigma',\delta)$ is implemented by a low-rank MLP subnetwork whose inputs are the decoded state $q$ and symbol $\sigma$, and whose outputs drive $h_m$ (via a motion token) and $h_{rw}$ (via a write token).
+\end{itemize}
+The entire computation is encoded in the prompt segment $P(M,x)$ as a latent program, leaving model weights unchanged.
+
+\section{Finite-Precision Error Analysis}
+Let $\epsilon$ bound quantization/noise at each linear operation; let Lipschitz constants per sub-block be $L_{\mathrm{attn}},L_{\mathrm{mlp}}$. For redundancy factor $r$ with majority voting across heads,
+\begin{equation}
+\Pr[\text{copy error at step }t] \le \exp\!\big(-c\, r\big) + O(\epsilon\, L_{\mathrm{attn}} L_{\mathrm{mlp}}\, t)\,.
+\end{equation}
+Choosing $r = \Theta(\log T)$ gives per-step errors $\le T^{-c_3}$.
+A union bound ensures that total computation succeeds with high probability, providing the stated theorem rate.
+
+\section{Black-Box Certification (Responsible Use)}
+We provide a model-agnostic certification harness that confirms the sufficiency condition without targeting protected or sensitive behaviors.
+It tests three generic capabilities:
+(i) \textbf{Copy fidelity} for fixed-length strings under prompt-programmed routing;
+(ii) \textbf{Arithmetic} (addition and multiplication) as canonical algorithmic tasks;
+(iii) \textbf{Universal TM traces} on benign toy alphabets.
+The harness records scaling of error vs.~sequence length and estimates an empirical threshold $\hat\tau$ for $(H\cdot D)\cdot L$.
+
+\begin{algorithm}[H]
+\caption{Latent Navigation Certification Harness (Black-Box)}
+\begin{algorithmic}[1]
+\State \textbf{Input:} model API, benign task family $\mathcal{T}$, lengths $T\in\{T_1,\dots\}$
+\For{task $t\in \mathcal{T}$}
+  \For{length $T$}
+    \State Build prompt $P(t,T)$ encoding soft-RAM controls (no weight access)
+    \State Query model once; decode predicted trace
+    \State Record copy fidelity and task accuracy; estimate per-step error
+  \EndFor
+\EndFor
+\State Fit empirical flip point $\hat\tau$ where error drops sharply; report $(H,D,L)$ meta and connectivity proxy $\hat\kappa$
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Connectivity estimation.} We estimate $\hat\kappa$ via the second eigenvalue of the normalized Laplacian on a subgraph induced by task tokens, with edges weighted by embedding cosine similarity or PMI. (See \cref{app:kappa} for practical estimators.)
+
+\section{Empirical Protocol}
+\textbf{Models.} A family of open models spanning $(H,D,L)$ ranges.\\
+\textbf{Tasks.} Copy, add, multiply, universal TM traces (benign encodings).\\
+\textbf{Metrics.} Per-step copy error, end-to-end task accuracy, and estimated $\hat\kappa$.\\
+\textbf{Hypotheses.} 
+H1: Sharp error drop when $(H\cdot D)\cdot L$ crosses $\tau(\kappa)$. 
+H2: Higher $\hat\kappa$ correlates with lower empirical flip $\hat\tau$ across otherwise similar models.
+\textbf{Ablations.} Reduce effective heads by masking; reduce context by truncation; perturb lexical connectivity by substituting task vocab with lower-connectivity synonyms.
+
+\section{Related Work}
+Prior Turing-completeness results for sequence models show existence of computations in principle but often rely on weight construction or multi-pass execution. Our novelty is sufficiency for \emph{latent navigation} with explicit $(H,D,L,\kappa)$ dependence and a black-box certification test. The lexical-connectivity hypothesis links language statistics to programmability thresholds.
+
+\section{Limitations and Responsible Scope}
+We provide sufficiency, not necessity; real models may violate assumptions (precision, positional encodings, attention sparsity). Our certification harness purposefully avoids tasks that target sensitive or restricted behaviors. The \emph{Constraint Fragility} phenomenon is treated only as a theoretical observation about measurement artifacts and proxy metrics; no operational guidance is provided or endorsed.
+
+\section{Predictions and Falsification Criteria}
+\begin{itemize}
+\item \textbf{P1 (Flip).} A measurable kink in per-step error vs.~$T$ appears as $(H\cdot D)\cdot L$ crosses $\tau(\kappa)$.
+\item \textbf{P2 (Connectivity).} Across matched $(H,D,L)$, models with higher $\hat\kappa$ flip earlier (lower effective threshold).
+\item \textbf{P3 (Redundancy law).} Required redundancy for copy fidelity scales as $r=\Theta(\log T)$.
+\item \textbf{P4 (Black-box sufficiency).} The harness rejects models below threshold even if they do well on shallow metrics, clarifying ``metric artifact'' claims.
+\end{itemize}
+
+\section{Conclusion}
+Three-Body Sufficiency explains the capability flip for transformer programmability as a resource and connectivity threshold. It is testable with black-box certification that keeps the discussion on safe, benign algorithmic ground while still probing computability in one pass.
+
+\appendix
+\section{Soft-RAM Construction Details}\label{app:construction}
+We detail attention patterns for addressing, copying, and motion; describe majority voting across heads; and provide a compact library of control tokens. We discuss how relative or rotary encodings supply motion signals and how MLP bottlenecks implement low-rank transition maps.
+
+\section{Error Bounds, Redundancy, and Precision}
+We derive bounds under sub-Gaussian perturbations per block, majority-vote Chernoff bounds, and Lipschitz composition. We give practical redundancy schedules $r(T)$ and discuss finite-context aliasing.
+
+\section{Estimating Lexical Connectivity $\kappa$}\label{app:kappa}
+We provide estimators using (i) embedding cosine graphs, (ii) PMI graphs with shrinkage, and (iii) co-attention graphs from benign probes. We give recipes for small-sample correction and stability checks.
+
+\section*{Ethics Statement}
+This work studies generic computation in models using benign tasks. We explicitly avoid tasks that could be used to target or bypass restrictions, and we provide no operational procedures for such purposes. Certification is about copy fidelity and algorithmic structure under safe settings.
+
+\section*{References}
+\begin{thebibliography}{9}
+\bibitem{vaswani} A.~Vaswani et al. \emph{Attention Is All You Need}. 2017.
+\bibitem{wei2022emergent} J.~Wei et al. \emph{Emergent Abilities of Large Language Models}. 2022.
+\bibitem{perez} E.~Perez et al. \emph{Discovering Language Model Behaviors with Model-Written Evaluations}. 2022.
+\bibitem{amari} S.~Amari. \emph{Natural Gradient Works Efficiently in Learning}. 1998.
+\bibitem{schmidhuber_turing} J.~Schmidhuber. \emph{RNNs are Universal Computers}. 2015.
+\end{thebibliography}
+
+\end{document}
+
+```

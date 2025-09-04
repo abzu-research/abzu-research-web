@@ -1,0 +1,1 @@
+'use client'; export default function HeroSection(){ return (<section className="py-24 text-center"><h1 className="text-4xl font-bold">Hero (Placeholder)</h1></section>); }

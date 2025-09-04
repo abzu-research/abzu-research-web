@@ -1,0 +1,181 @@
+{
+  "nodes": [
+    {
+      "id": "elliott-framework/elliott-framework",
+      "label": "Elliott Framework",
+      "group": "elliott-framework"
+    },
+    {
+      "id": "invariant-transport/modal-shell-for-drift",
+      "label": "Modal Shell for Drift",
+      "group": "invariant-transport"
+    },
+    {
+      "id": "invariant-transport/measure-theoretic-flow-centrality",
+      "label": "MT Flow Centrality",
+      "group": "invariant-transport"
+    },
+    {
+      "id": "invariant-transport/ergodic-metric-drift-path-validity",
+      "label": "Ergodic Metric Drift",
+      "group": "invariant-transport"
+    },
+    {
+      "id": "typed-effect-safety/compile-time-safety-contracts-decision-kernels",
+      "label": "Contracts for Decision Kernels",
+      "group": "typed-effect-safety"
+    },
+    {
+      "id": "typed-effect-safety/large-typed-contract-indexed-graded-effect-calculus",
+      "label": "Graded Effect Calculus",
+      "group": "typed-effect-safety"
+    },
+    {
+      "id": "perception-and-policy-search/inversion-guardrail-sign-flip-repair",
+      "label": "Inversion Guardrail",
+      "group": "perception-and-policy-search"
+    },
+    {
+      "id": "perception-and-policy-search/temperament-conditioned-policy-search",
+      "label": "Temperament Policy Search",
+      "group": "perception-and-policy-search"
+    },
+    {
+      "id": "perception-and-policy-search/latent-state-vector-infrastructure-lsvi",
+      "label": "LSVI",
+      "group": "perception-and-policy-search"
+    },
+    {
+      "id": "elliott-framework/the-inevitability-engine-a-research-program-in-quotient-flow-information-qfi",
+      "label": "The Inevitability Engine: A Research Program in Quotient-Flow Information (QFI)",
+      "group": "elliott-framework"
+    },
+    {
+      "id": "elliott-framework/three-body-sufficiency-for-turing-complete-latent-navigation-in-transformer-arch",
+      "label": "Three-Body Sufficiency for Turing-Complete Latent Navigation in Transformer Architectures",
+      "group": "elliott-framework"
+    },
+    {
+      "id": "invariant-transport/qfi-as-physical-law-a-fisher-action-principle-for-quotient-flows-with-decisive-t",
+      "label": "QFI as Physical Law: A Fisher--Action Principle for Quotient Flows with Decisive Tests",
+      "group": "invariant-transport"
+    },
+    {
+      "id": "elliott-framework/the-canonical-consciousness-theorem-criticality-free-energy-and-pci",
+      "label": "The Canonical Consciousness Theorem: Criticality, Free Energy, and PCI*",
+      "group": "elliott-framework"
+    },
+    {
+      "id": "perception-and-policy-search/vgate-nightlight-recovering-harm-surface-normals-from-failure-patterns",
+      "label": "VGATE Nightlight: Recovering Harm-Surface Normals from Failure Patterns",
+      "group": "perception-and-policy-search"
+    },
+    {
+      "id": "perception-and-policy-search/the-theia-protocol-native-l-data-as-an-efficiency-amplifier",
+      "label": "The Theia Protocol: Native L' Data as an Efficiency Amplifier",
+      "group": "perception-and-policy-search"
+    },
+    {
+      "id": "perception-and-policy-search/latent-state-vector-infrastructure-fused-steelman-draft",
+      "label": "Latent State Vector Infrastructure: \\\\ Fused Steelman Draft",
+      "group": "perception-and-policy-search"
+    },
+    {
+      "id": "invariant-transport/qfi-ii-notes",
+      "label": "QFI\u2011II Notes \u2014 Supplemental Extensions",
+      "group": "invariant-transport"
+    },
+    {
+      "id": "elliott-framework/predictions-ledger",
+      "label": "Predictions Ledger \u2014 Elliott Program",
+      "group": "elliott-framework"
+    }
+  ],
+  "links": [
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "invariant-transport/modal-shell-for-drift",
+      "weight": 1
+    },
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "typed-effect-safety/compile-time-safety-contracts-decision-kernels",
+      "weight": 1
+    },
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "perception-and-policy-search/latent-state-vector-infrastructure-lsvi",
+      "weight": 1
+    },
+    {
+      "source": "invariant-transport/modal-shell-for-drift",
+      "target": "invariant-transport/measure-theoretic-flow-centrality",
+      "weight": 1
+    },
+    {
+      "source": "invariant-transport/measure-theoretic-flow-centrality",
+      "target": "invariant-transport/ergodic-metric-drift-path-validity",
+      "weight": 1
+    },
+    {
+      "source": "typed-effect-safety/compile-time-safety-contracts-decision-kernels",
+      "target": "typed-effect-safety/large-typed-contract-indexed-graded-effect-calculus",
+      "weight": 1
+    },
+    {
+      "source": "perception-and-policy-search/latent-state-vector-infrastructure-lsvi",
+      "target": "perception-and-policy-search/temperament-conditioned-policy-search",
+      "weight": 1
+    },
+    {
+      "source": "perception-and-policy-search/latent-state-vector-infrastructure-lsvi",
+      "target": "perception-and-policy-search/inversion-guardrail-sign-flip-repair",
+      "weight": 1
+    },
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "elliott-framework/inevitability-engine-program",
+      "weight": 1
+    },
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "elliott-framework/canonical-consciousness-theorem",
+      "weight": 1
+    },
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "elliott-framework/three-body-sufficiency",
+      "weight": 1
+    },
+    {
+      "source": "elliott-framework/elliott-framework",
+      "target": "elliott-framework/predictions-ledger",
+      "weight": 1
+    },
+    {
+      "source": "invariant-transport/qfi-unified-field",
+      "target": "invariant-transport/qfi-ii-notes",
+      "weight": 1
+    },
+    {
+      "source": "invariant-transport/qfi-unified-field",
+      "target": "invariant-transport/measure-theoretic-flow-centrality",
+      "weight": 1
+    },
+    {
+      "source": "perception-and-policy-search/lsvi-fused",
+      "target": "perception-and-policy-search/latent-state-vector-infrastructure-lsvi",
+      "weight": 1
+    },
+    {
+      "source": "perception-and-policy-search/theia-protocol",
+      "target": "perception-and-policy-search/inversion-guardrail-sign-flip-repair",
+      "weight": 1
+    },
+    {
+      "source": "perception-and-policy-search/vgate-nightlight",
+      "target": "perception-and-policy-search/inversion-guardrail-sign-flip-repair",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+---
+slug: the-inevitability-engine-a-research-program-in-quotient-flow-information-qfi
+title: The Inevitability Engine: A Research Program in Quotient-Flow Information (QFI)
+cluster: elliott-framework
+authors: ["J. [Program Codename: The Inevitability Engine]"]
+abstract: >
+  We propose a unified research program that treats intelligence, physics, and ethics as boundary conditions of a single information-geometric dynamic: \emph{Quotient-Flow Information} (QFI). The central working hypothesis is that complex cognitive agents do not \emph{invent} their architectures; they \emph{discover} invariant structures forced by Fisher-information geometry under resource constraints. This document specifies the axioms, invariants, and cross-bridges needed to turn disparate results---latent-state navigation, emergent phase transitions in transformers, information-theoretic limits of synthetic data, and topology of ethical feedback---into one falsifiable theory with sharp, testable predictions.
+date: "2025-08-21"
+status: "preprint"
+repoUrl: ""
+overleafUrl: ""
+pdfUrl: ""
+tags: []
+citation:
+  bibtex: |
+    @article{theinevitabilityenginearesearchprograminquotientflowinformationqfi2025}
+---
+
+## Long-form
+
+Below is the source (LaTeX) for this paper. It is preserved verbatim pending an editorial pass.
+
+```tex
+\
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{corollary}{Corollary}
+
+\title{The Inevitability Engine: A Research Program in Quotient-Flow Information (QFI)}
+\author{J. [Program Codename: The Inevitability Engine]}
+\date{Draft generated 2025-08-20T23:32:54Z}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+We propose a unified research program that treats intelligence, physics, and ethics as boundary conditions of a single information-geometric dynamic: \emph{Quotient-Flow Information} (QFI).
+The central working hypothesis is that complex cognitive agents do not \emph{invent} their architectures; they \emph{discover} invariant structures forced by Fisher-information geometry under resource constraints.
+This document specifies the axioms, invariants, and cross-bridges needed to turn disparate results---latent-state navigation, emergent phase transitions in transformers, information-theoretic limits of synthetic data, and topology of ethical feedback---into one falsifiable theory with sharp, testable predictions.
+\end{abstract}
+
+\section{Contributions}
+\begin{itemize}
+  \item Formalizes the QFI postulates: reparameterization-invariant dynamics over equivalence classes of representations (\emph{quotient flows}).
+  \item States six bridge lemmas connecting cognition $\leftrightarrow$ physics $\leftrightarrow$ ethics.
+  \item Defines a minimal set of experiments required to confirm or kill the program within a year.
+  \item Specifies interfaces to LSVI, Kantian Inevitability, and the Theia Protocol.
+\end{itemize}
+
+\section{Preliminaries and Notation}
+Let $\Theta$ denote parameter manifolds and $\mathcal{P}=\{p(x;\theta)\}$ families of distributions.
+Fisher information induces a Riemannian metric $g_{ij}(\theta)=\mathbb{E}_x[\partial_i \log p \,\partial_j \log p]$.
+Define \emph{quotient flows} as trajectories on equivalence classes $[\theta]\in \Theta/\mathcal{G}$ where $\mathcal{G}$ is a gauge group of reparameterizations that preserve predictive content.
+Natural-gradient dynamics $\dot\theta \propto -F^{-1}\nabla L$ become geodesic flow on $(\Theta/\mathcal{G},g)$.
+
+\section{Main Statements}
+\begin{theorem}[Bridge A: Turing $\to$ QFI]
+If a representational system is Turing-complete by latent navigation and its update rule is a (possibly approximate) natural gradient, it can compute its own QFI transformations up to gauge.
+\end{theorem}
+\begin{theorem}[Bridge B: QFI $\to$ Quantum Hydrodynamics]
+Extremizing an action functional $S[p,\phi] = \int (\lambda\, I_F[p] - \mathcal{E}[p,\phi])\,dt$ subject to continuity yields Madelung fluid equations equivalent to the Schr\"odinger equation under $Q=\frac{\hbar^2}{2m}\frac{\Delta \sqrt{p}}{\sqrt{p}}$ with $\hbar$ as a Lagrange multiplier.
+\end{theorem}
+\begin{theorem}[Bridge C: Criticality $\to$ Conscious Access]
+In predictive-coding networks with bounded energy, metastable critical points maximize integrated information subject to free-energy budgets.
+\end{theorem}
+\begin{proposition}[Bridge D: Ethical Light Cones]
+Given a feedback graph $G=(V,E)$ with costs on edges, the obligation domain of an agent $a\in V$ is the minimal set reachable under budget $B$; outside this set obligations are undefined (not zero).
+\end{proposition}
+
+\section{Proof Sketches and Derivation Outlines}
+All statements are program-level theorems with constructive proof sketches deferred to the companion papers:
+latent Turing completeness (Paper 01), Fisher-action quantization (Paper 02), PCI-criticality (Paper 03), and feedback topology (Paper 04).
+
+\section{Empirical Protocols and Decisive Tests}
+(1) Fisher-Action Derivation Test: recover Schr\"odinger dynamics in a sandbox potential by extremizing a discrete Fisher action; (2) PCI-criticality: show a kink in perturbational complexity as coupling passes a critical value; (3) Latent TM construction in a transformer with bounded precision; (4) Ethical-cone simulations with RL agents under varying feedback radii.
+
+\section{Predictions and Falsification Loci}
+\begin{itemize}
+\item \textbf{P1} (Latent TM): Above a computable threshold $\tau(H,D,L,\kappa)$, a single forward pass can emulate a $T$-step TM with error $\le \varepsilon$.
+\item \textbf{P2} (Fisher-Action): Discrete extremization reproduces ground-state energies within $<1\%$ for solvable wells without fitting physical constants beyond a single global multiplier.
+\item \textbf{P3} (PCI-kink): PCI* exhibits a reproducible jump near coupling $\alpha_c$ where avalanche exponents approach $-3/2$.
+\end{itemize}
+
+\section{Related and Antecedent Work (Contextual)}
+Positions the program alongside information geometry, entropic dynamics, predictive coding, and topological ethics; novelty is the quotient-flow unification and decisive tests.
+
+\section{Limitations and Open Problems}
+Main risks: conflating mathematical analogy with identity; ensuring falsifiability; avoiding metric-artifact emergence claims. We center predictions with crisp failure criteria.
+
+\section{Appendices (Definitions, Lemmas, and Calculations)}
+Appendix lists common symbols and the six bridge lemmas in full.
+
+\end{document}
+
+```

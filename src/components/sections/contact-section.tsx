@@ -1,0 +1,1 @@
+'use client'; export default function ContactSection(){ return (<section className="py-16"><h2 className="text-2xl font-semibold">Contact (Placeholder)</h2></section>); }

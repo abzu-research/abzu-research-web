@@ -1,0 +1,1 @@
+'use client'; export default function AboutSection(){ return (<section className="py-16"><h2 className="text-2xl font-semibold">About (Placeholder)</h2></section>); }

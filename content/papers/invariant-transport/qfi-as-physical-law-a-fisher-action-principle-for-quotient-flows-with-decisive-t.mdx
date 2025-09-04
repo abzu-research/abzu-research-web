@@ -1,0 +1,252 @@
+---
+slug: qfi-as-physical-law-a-fisher-action-principle-for-quotient-flows-with-decisive-t
+title: QFI as Physical Law: A Fisher--Action Principle for Quotient Flows with Decisive Tests
+cluster: invariant-transport
+authors: ["Jacob"]
+abstract: >
+  We develop an information--geometric action principle on quotient manifolds of statistical models and show that its Euler--Lagrange equations reproduce quantum hydrodynamics in Madelung form under a single global scale factor. The central construct is the \emph{Fisher--action} on equivalence classes of parametrizations (``quotient flows''). Stationarity yields the continuity equation and a quantum Hamilton--Jacobi equation with a quantum potential proportional to the Fisher curvature of the density. With the identification $\lambda=\hbar^2/m$, these equations are equivalent to the Schr\"odinger equation. We provide a discrete extremization scheme and a minimal empirical protocol (harmonic well and infinite well) that can falsify the proposal: after a single calibration of $\lambda$, ground and first excited state energies should match analytical values within $<1\%$ on sufficiently fine grids, with predicted error scaling in the grid spacing. The framework unifies reparameterization--invariant learning dynamics (natural gradient), entropic inference, and unitary evolution as facets of one quotient--flow geometry. We discuss classical and diffusive limits, limitations (spin and gauge), and crisp predictions.
+date: "2025-08-21"
+status: "preprint"
+repoUrl: ""
+overleafUrl: ""
+pdfUrl: ""
+tags: []
+citation:
+  bibtex: |
+    @article{qfiasphysicallawafisheractionprincipleforquotientflowswithdecisivet2025}
+---
+
+## Long-form
+
+Below is the source (LaTeX) for this paper. It is preserved verbatim pending an editorial pass.
+
+```tex
+\
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[nameinlink,capitalize]{cleveref}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+
+\title{QFI as Physical Law: A Fisher--Action Principle for Quotient Flows with Decisive Tests}
+\author{Jacob}
+\date{Draft: 2025-08-20 23:44:45Z}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop an information--geometric action principle on quotient manifolds of statistical models and show that its Euler--Lagrange equations reproduce quantum hydrodynamics in Madelung form under a single global scale factor.
+The central construct is the \emph{Fisher--action} on equivalence classes of parametrizations (``quotient flows'').
+Stationarity yields the continuity equation and a quantum Hamilton--Jacobi equation with a quantum potential proportional to the Fisher curvature of the density.
+With the identification $\lambda=\hbar^2/m$, these equations are equivalent to the Schr\"odinger equation.
+We provide a discrete extremization scheme and a minimal empirical protocol (harmonic well and infinite well) that can falsify the proposal: after a single calibration of $\lambda$, ground and first excited state energies should match analytical values within $<1\%$ on sufficiently fine grids, with predicted error scaling in the grid spacing.
+The framework unifies reparameterization--invariant learning dynamics (natural gradient), entropic inference, and unitary evolution as facets of one quotient--flow geometry.
+We discuss classical and diffusive limits, limitations (spin and gauge), and crisp predictions.
+\end{abstract}
+
+\section{Introduction}
+Modern information geometry equips statistical models with a Riemannian structure via the Fisher information metric. 
+Natural--gradient updates are geodesic flows on this geometry, endowing inference dynamics with coordinate--free meaning.
+We ask a stronger question: can a single, reparameterization--invariant action on probability densities and velocity potentials reproduce the equations of nonrelativistic quantum mechanics?
+If so, we would obtain a falsifiable bridge between inference and physics, separating metaphor from mechanism.
+
+We answer in the affirmative for scalar, spinless systems: a Fisher--curvature term combined with a continuity constraint yields quantum hydrodynamics (Madelung) and hence the Schr\"odinger equation after a single scale identification.
+We position this as a testable \emph{quotient--flow} principle: physics and learning share the same information--geometric skeleton once we identify equivalence classes of parametrizations.
+
+\paragraph{Contributions.}
+(i) An invariant Fisher--action on equivalence classes $\Theta/\mathcal{G}$ yields continuity $+$ quantum Hamilton--Jacobi (QHJ). 
+(ii) A concise, reproducible extremization algorithm that predicts discrete spectra without postulating a wavefunction.
+(iii) Error--scaling predictions with grid spacing and a single global scale $\lambda$.
+(iv) Limits: classical ($\lambda\to 0$) and diffusive ($\lambda<0$).
+(v) A roadmap to spin/gauge via bundle--valued Fisher terms.
+
+\section{Quotient Flows and Fisher Geometry}
+Let $\mathcal{P}=\{p(x;\theta): x \in \Omega \subset \mathbb{R}^d,\ \theta\in\Theta\}$ denote a family of densities.
+The Fisher metric is
+\begin{equation}
+g_{ij}(\theta)=\mathbb{E}_{x\sim p(\cdot;\theta)}\big[\partial_i \log p\, \partial_j \log p\big]\,.
+\end{equation}
+Let $\mathcal{G}$ be a group of reparametrizations $\theta\mapsto \phi(\theta)$ preserving the predictive content of $p$ (e.g., smooth bijections or gauge symmetries in a graphical model).
+
+\begin{definition}[Quotient Flow]
+A \emph{quotient flow} is a trajectory on equivalence classes $[\theta] \in \Theta/\mathcal{G}$ induced by a functional that is invariant under $\mathcal{G}$. 
+In the density representation, this means dynamics depend only on $p$ and geometrical quantities derived from $p$, not on coordinates of $\theta$.
+\end{definition}
+
+Natural--gradient descent $\dot{\theta}=-\eta\, F(\theta)^{-1}\nabla_\theta L$ produces coordinate--free dynamics.
+Here we take an action on $(p,\phi)$ that is explicitly invariant and derive equations of motion by variational calculus.
+
+\section{Fisher--Action Principle}
+Let $p(x,t)\ge 0$ integrate to $1$ for each $t$, and let $\phi(x,t)$ be a velocity potential.
+Define Fisher information
+\begin{equation}
+I_F[p]=\int_\Omega \frac{|\nabla p|^2}{4p}\, dx = \int_\Omega |\nabla \sqrt{p}|^2\,dx\,.
+\end{equation}
+Consider the action
+\begin{equation}
+S[p,\phi]=\int_{t_0}^{t_1}\!\!\int_\Omega \Big(\lambda\, |\nabla \sqrt{p}|^2 + p\big(\partial_t \phi + \tfrac{1}{2}|\nabla \phi|^2 + V(x)\big)\Big)\, dx\, dt\,,
+\label{eq:action}
+\end{equation}
+with $\lambda$ a global constant and $V$ a potential.
+
+\begin{theorem}[Stationarity yields continuity + QHJ]
+Subject to variations $\delta p,\delta \phi$ vanishing on the boundary, stationarity of $S$ implies
+\begin{align}
+\partial_t p + \nabla \cdot \big(p \nabla \phi\big) &= 0 \quad \text{(continuity)} \label{eq:continuity}\\
+\partial_t \phi + \tfrac{1}{2}|\nabla \phi|^2 + V + Q &= 0 \quad \text{(QHJ)} \label{eq:QHJ}
+\end{align}
+with quantum potential $Q = \lambda\, \frac{\Delta \sqrt{p}}{\sqrt{p}}$.
+\end{theorem}
+
+\begin{proof}
+Vary $\phi$: $\delta S = \int p\, \delta(\partial_t\phi + \tfrac12 |\nabla\phi|^2)\,dx\,dt = \int \big(-\partial_t p - \nabla\cdot(p\nabla\phi)\big)\delta\phi\,dx\,dt$, giving \eqref{eq:continuity}.
+Vary $p$: the Fisher term yields $\delta \int \lambda |\nabla\sqrt{p}|^2 = \int \lambda\, \frac{\Delta \sqrt{p}}{\sqrt{p}}\, \delta p \, dx$ by standard calculus of variations; the rest contributes $\delta \int p(\partial_t\phi + \tfrac12 |\nabla\phi|^2+V) = \int (\partial_t\phi + \tfrac12 |\nabla\phi|^2+V)\, \delta p\, dx$. 
+Setting the integrand to zero gives \eqref{eq:QHJ}.
+\end{proof}
+
+\paragraph{Equivalence to Schr\"odinger.}
+Let $\psi=\sqrt{p}\, e^{i \phi/\hbar}$. Identify $\lambda=\hbar^2/m$ and define velocity $\bm v=\nabla \phi$.
+Then \eqref{eq:continuity} and \eqref{eq:QHJ} are equivalent to the real and imaginary parts of the Schr\"odinger equation $i\hbar\, \partial_t \psi = - \frac{\hbar^2}{2m}\Delta \psi + V\psi$.
+Thus the wavefunction arises as a bundle--valued section over the quotient space; it is not postulated but reconstructed from $(p,\phi)$.
+
+\section{Limits and Interpretation}
+\paragraph{Classical limit.}
+As $\lambda\to 0$, $Q\to 0$ and \eqref{eq:QHJ} reduces to the classical Hamilton--Jacobi equation with velocity field $\nabla \phi$.
+
+\paragraph{Diffusive/Stochastic limit.}
+For $\lambda<0$ (interpretable as an entropic penalty), one obtains a sign--flipped quantum potential consistent with diffusive dynamics; in discrete form this approaches Fokker--Planck evolution. We do not claim physicality for $\lambda<0$—it is a modeling dial highlighting the role of curvature.
+
+\paragraph{Quotient invariance.}
+Any reparametrization $\theta\mapsto \phi(\theta)$ inducing the same density $p$ leaves $S$ invariant, so trajectories are properties of the equivalence class $[p]$ rather than coordinates. This is the sense in which physics and learning share a quotient--flow backbone.
+
+\section{Discrete Extremization: A Decisive Test}
+We give a reproducible scheme that, if it fails under the stated tolerance, falsifies the proposal.
+
+\subsection{Stationary states as constrained minimizers}
+For time--independent $V$, seek stationary $p(x),\phi(x)$ with $\partial_t p = 0$ and $\partial_t \phi = -E$ (constant). Then \eqref{eq:continuity} gives $\nabla\cdot(p\nabla \phi)=0$; for bound states in 1D we may take $\nabla \phi = 0$ (no net flow). Equation \eqref{eq:QHJ} becomes
+\begin{equation}
+E = V(x) + \lambda \frac{\Delta \sqrt{p}}{\sqrt{p}}\,.
+\end{equation}
+Let $u=\sqrt{p}$, enforce $\int u^2=1$, and minimize the functional
+\begin{equation}
+\mathcal{E}[u] = \int \Big(\lambda |\nabla u|^2 + V u^2 \Big)\,dx \quad \text{subject to } \int u^2\,dx=1\,.
+\label{eq:energy}
+\end{equation}
+The Euler--Lagrange equation yields $-2\lambda \Delta u + 2 V u = 2 E u$, i.e., the time--independent Schr\"odinger equation with the identification $\lambda=\hbar^2/(2m)$. Our calibration uses $\lambda=\hbar^2/m$ in \eqref{eq:action}, consistent up to conventional factors.
+
+\subsection{Finite--difference scheme}
+Discretize $\Omega=[0,L]$ into $N$ points with spacing $\Delta x$, with Dirichlet boundary conditions for the infinite well and natural decays for harmonic wells on a sufficiently large interval.
+Approximate $\int |\nabla u|^2 \approx \sum (u_{i+1}-u_i)^2 / \Delta x$ and $\int V u^2 \approx \sum V_i u_i^2\, \Delta x$.
+
+\begin{algorithm}[H]
+\caption{Fisher--Action Ground State (1D)}
+\begin{algorithmic}[1]
+\State \textbf{Input:} grid $\{x_i\}_{i=1}^N$, potential $V_i$, step sizes $\eta_u,\eta_\mu$, target tolerance $\epsilon$, calibration level index $k^\star$
+\State Initialize $u \leftarrow$ positive random, then normalize $u \leftarrow u/\|u\|_2$
+\State Initialize Lagrange multiplier $\mu\leftarrow 0$
+\Repeat
+  \State Compute gradient $g \leftarrow -2\lambda \Delta_d u + 2 V \odot u - 2 \mu u$
+  \State $u \leftarrow u - \eta_u\, g$ \Comment{natural--gradient preconditioning optional}
+  \State $u \leftarrow \max(u, 0)$; \quad $u \leftarrow u / \|u\|_2$
+  \State Update $\mu \leftarrow \mu + \eta_\mu\, (\|u\|_2^2 - 1)$
+\Until{relative change in $\mathcal{E}[u]$ below $\epsilon$}
+\State \textbf{Output:} $E_0=\mathcal{E}[u]$, $u$ as ground state; calibrate $\lambda$ so $E_{k^\star}$ matches analytic value
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Calibration and prediction.} Choose a single known eigenvalue to fix $\lambda$ (e.g., $E_0$ in a harmonic well). Without further tuning, predict $E_1,E_2,\ldots$ and compare with analytical spectra. 
+
+\subsection{Error scaling prediction}
+Let $\Delta x$ be the grid spacing. For the centered finite--difference Laplacian, the discretization error in energies scales as $O(\Delta x^2)$ assuming sufficient regularity of $u$ and $V$. Thus, after fixing $\lambda$ once, the relative error $\delta E/E$ for higher levels should decay $\propto \Delta x^2$ as the grid is refined, up to conditioning effects for high $n$.
+
+\section{Results to Expect (Before You Run Them)}
+\paragraph{Infinite well $[0,L]$.}
+Analytical energies $E_n = \frac{\pi^2 \hbar^2}{2m L^2} n^2$. After setting $\lambda$ from $E_1$, predicted $E_2/E_1\approx 4$, $E_3/E_1\approx 9$ should hold within $<1\%$ for $N\gtrsim 500$ with our discretization. Deviations follow the $O(\Delta x^2)$ law.
+
+\paragraph{Harmonic well.}
+With $V(x)=\tfrac12 m\omega^2 x^2$, energies $E_n = \hbar \omega (n+\tfrac12)$. After fixing $\lambda$ on $E_0$, all $E_n$ fall into line; the shape $u_n(x)$ aligns with Hermite--Gauss modes under standard inner products.
+
+\section{Relation to Learning Dynamics}
+The functional $\mathcal{E}[u]$ is a Rayleigh quotient; its gradient descent is equivalent to power iteration on a discretized self--adjoint operator. In learning terms, the Fisher term penalizes curvature in $\sqrt{p}$, acting as a data--dependent smoothness prior.
+Natural gradient interprets as preconditioning by the Fisher metric, which here is built into the action itself.
+
+\section{Related Work (Contextual, Non-Exhaustive)}
+Information geometry (Amari), entropic and entropic--dynamics derivations of quantum mechanics (Jaynes; Caticha), Fisher--information physics (Frieden), stochastic mechanics (Nelson), and hydrodynamic quantum formulations (Madelung) all touch adjacent ideas.
+Our novelty is the quotient--flow framing with a single, crisp empirical protocol and falsification criteria, plus the explicit bridge to learning dynamics.
+
+\section{Limitations and Extensions}
+\paragraph{Spin and gauge.}
+Spin requires extending $u$ to a section of a spinor bundle and adding gauge--equivariant Fisher terms. Gauge fields suggest replacing gradients by covariant derivatives in the action. These are nontrivial but straightforward directions.
+
+\paragraph{Open systems.}
+Dissipation and decoherence can be modeled by adding Kullback--Leibler or cross--entropy terms to the action, breaking unitarity in controlled ways.
+
+\paragraph{Relativistic generalization.}
+A Lorentz--covariant Fisher action would require careful treatment of probability densities on spacelike hypersurfaces; beyond scope here.
+
+\section{Predictions and Falsification Criteria}
+\begin{itemize}
+\item \textbf{P1 (Spectral match).} After calibrating $\lambda$ with one level, predicted eigenvalues for the infinite and harmonic wells match analytical values within $<1\%$ for sufficiently fine grids. Failure falsifies the claim.
+\item \textbf{P2 (Error law).} Relative error scales as $O(\Delta x^2)$ under grid refinement. Different discretizers change the slope but preserve polynomial order.
+\item \textbf{P3 (Classical limit).} As $\lambda\to 0$, the method reduces to classical Hamilton--Jacobi; numerical trajectories converge to classical characteristics.
+\item \textbf{P4 (Diffusive dial).} For $\lambda<0$, evolution mimics diffusive spread consistent with Fokker--Planck; we do not claim physicality, but the sign flip must behave predictably.
+\end{itemize}
+
+\section{Conclusion}
+A single reparameterization--invariant Fisher action on quotient flows suffices to recover the scalar Schr\"odinger equation and gives a compact recipe for decisive tests.
+Whether nature ``uses'' this action is not settled by elegance but by spectra: calibrate once, predict many, check the errors.
+Either the numbers line up under the stated conditions or they do not.
+That is the right kind of unification: one that risks being wrong in public.
+
+\section*{Acknowledgements}
+The author thanks collaborators and model assistance in developing the quotient--flow program.
+
+\appendix
+\section{Detailed Variations}
+We sketch the calculus of variations for the Fisher term. Let $u=\sqrt{p}$. Then
+\begin{equation}
+\delta \int \lambda |\nabla u|^2 dx = 2\lambda \int \nabla u \cdot \nabla (\delta u)\, dx = -2\lambda \int \Delta u\, \delta u\, dx + \text{boundary}\,.
+\end{equation}
+With $p=u^2$, $\delta p = 2 u\, \delta u$ gives the form in the main text.
+
+\section{Discrete Operator Form}
+On a uniform grid, define the symmetric tridiagonal Laplacian $L$ with $(Lu)_i = (u_{i+1}-2u_i+u_{i-1})/\Delta x^2$ and diagonal potential matrix $V$. Then minimizing \eqref{eq:energy} under $\|u\|_2=1$ is equivalent to the eigenproblem
+\begin{equation}
+( -\lambda L + V ) u = E u\,.
+\end{equation}
+Our gradient scheme is equivalent to power iteration with normalization and optional shift--invert acceleration.
+
+\section{Algorithmic Details and Practical Notes}
+Use reflective boundary conditions for harmonic wells on a large domain to reduce boundary artifacts.
+Normalize frequently to avoid drift in $\|u\|_2$.
+For excited states, orthogonalize $u$ against previously found modes at each step (Gram--Schmidt). 
+Natural--gradient preconditioning corresponds to solving $(G+\epsilon I)\Delta u = -g$ where $G$ approximates the Fisher metric in discretized coordinates.
+
+\section*{References}
+\begin{thebibliography}{9}
+\bibitem{amari} S.~Amari. \emph{Natural gradient works efficiently in learning}. Neural Computation, 1998.
+\bibitem{madelung} E.~Madelung. \emph{Quantentheorie in hydrodynamischer Form}. Zeitschrift f\"ur Physik, 1926.
+\bibitem{nelson} E.~Nelson. \emph{Derivation of the Schr\"odinger Equation from Newtonian Mechanics}. Physical Review, 1966.
+\bibitem{caticha} A.~Caticha. \emph{Entropic Dynamics}. Entropy, 2012.
+\bibitem{frieden} B.~R.~Frieden. \emph{Science from Fisher Information}. Cambridge University Press, 2004.
+\bibitem{jaynes} E.~T.~Jaynes. \emph{Information Theory and Statistical Mechanics}. Physical Review, 1957.
+\end{thebibliography}
+
+\end{document}
+
+```

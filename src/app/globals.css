@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand colors - cyan-led palette */
+    --brand-cyan: 180 100% 50%;
+    --brand-yellow: 60 100% 50%;
+    --brand-tangerine: 30 100% 50%;
+    --brand-magenta: 300 100% 50%;
+    --brand-lime: 120 100% 50%;
+    
+    /* Ink system for text */
+    --ink-h1: 240 10% 3.9%;
+    --ink-body: 240 5% 34%;
+    --ink-sub: 240 4% 46%;
+    --ink-meta: 240 3% 83%;
+    
+    /* Line system for borders */
+    --line: 240 5.9% 90%;
+    
+    /* Surface colors */
+    --background: 0 0% 100%;
+    --foreground: var(--ink-h1);
+    --card: 0 0% 100%;
+    --card-foreground: var(--ink-h1);
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--ink-h1);
+    --primary: var(--brand-cyan);
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: var(--ink-h1);
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: var(--ink-meta);
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: var(--ink-h1);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: var(--line);
+    --input: var(--line);
+    --ring: var(--brand-cyan);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: var(--brand-cyan);
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: var(--ink-meta);
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: var(--brand-cyan);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* Abzu hero backgrounds */
+.bg-radial-abzu {
+	background: radial-gradient(1200px 600px at 50% -10%, hsl(var(--brand-cyan) / 0.25), transparent 70%),
+		linear-gradient(to bottom, white, white);
+}
+
+.bg-abstract-abzu {
+	position: relative;
+	background:
+		radial-gradient(800px 400px at 10% 0%, hsl(var(--brand-cyan) / 0.18), transparent 60%),
+		radial-gradient(700px 350px at 90% 10%, hsl(var(--brand-cyan) / 0.14), transparent 60%),
+		linear-gradient(to bottom, white, white);
+}
+
+.bg-abstract-abzu::before {
+	content: "";
+	position: absolute;
+	inset: -10% -10% -5% -10%;
+	background:
+		conic-gradient(from 0deg at 50% 50%, hsl(var(--brand-cyan) / 0.06), transparent 40%, hsl(var(--brand-cyan) / 0.06) 70%, transparent 100%);
+	filter: blur(40px);
+	animation: abzu-drift 14s linear infinite;
+	pointer-events: none;
+}
+
+@keyframes abzu-drift {
+	0% { transform: translateY(0) rotate(0deg); }
+	50% { transform: translateY(12px) rotate(1deg); }
+	100% { transform: translateY(0) rotate(0deg); }
+}

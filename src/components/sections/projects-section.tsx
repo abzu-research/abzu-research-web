@@ -1,0 +1,1 @@
+'use client'; export default function ProjectsSection(){ return (<section className="py-16"><h2 className="text-2xl font-semibold">Projects (Placeholder)</h2></section>); }

@@ -1,0 +1,7 @@
+id,statement,threshold_formula,metric,target_value,status
+P-LATENT-TM,Capability flip when (H*D)*L crosses tau(kappa); single-pass TM emulation error drops sharply.,(H*D)*L >= tau(kappa),emulation error,<= T^{-c3},proposed
+P-FISHER-ACTION,Discrete Fisher-action extremization reproduces quantum spectra with <1% error after single global scale calibration.,grid>=N_min,eigenvalue relative error,< 0.01,proposed
+P-PCI-KINK,PCI* exhibits kink at critical coupling with avalanche exponent ~ -3/2.,alpha ~= alpha_c(B),PCI* change / avalanche exponent,kink present; exponent≈-1.5,proposed
+P-NATIVE-EFF,Native L' data gives 2x–5x token efficiency over synthetic at matched loss.,Delta I > 0,tokens per target loss,2–5x advantage,proposed
+P-GRID-CELLS,Grid-like spatial codes emerge within minutes across mammalian species with ~hexagonal precision.,"exposure_time in [10,30] minutes",gridness score / angle error,<=5 degrees,literature-claimed; to-verify
+P-CONSC-THRESH,PCI* threshold ~0.31 separates conscious from unconscious regimes.,PCI* >= 0.31,binary classification accuracy,>= 0.9 sensitivity,conjecture
